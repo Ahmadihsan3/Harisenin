@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda - Vidiobelajar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link-active {
+            background-color: #f3f4f6;
+            color: #4a4a4a;
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-[#FFFDF3]">
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto max-w-[1200px] px-4 md:px-6 lg:px-10 py-4 flex justify-between items-center">
+            <img src="/assets/logo.png" alt="Logo" class="h-8 md:h-10">
+            
+            <!-- Menu untuk Desktop (dengan Avatar dan Kategori) -->
+            <div class="hidden md:flex items-center space-x-5">
+                <a href="#" class="text-gray-700 hover:text-orange-500">Kategori</a> <!-- Menambahkan link Kategori -->
+                <div class="relative">
+                    <img src="/assets/Avatar.png" alt="avatar" class="h-12 w-12 rounded-[10px] cursor-pointer" id="avatar">
+                    <div id="dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Admin</a>
+                        <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100">Profile</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Logout</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hamburger Menu untuk tampilan kecil -->
+            <div class="md:hidden flex items-center">
+                <button id="hamburgerBtn" class="text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu dropdown untuk tampilan mobile -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white shadow-md py-4 px-6 space-y-4">
+            <div class="relative text-right">
+                <!-- Langsung menampilkan Admin, Profile, dan Logout -->
+                <span class="text-gray-700">
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Admin</a>
+                </span>
+                <span class="text-gray-700">
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                </span>
+                <span class="text-gray-700">
+                    <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Logout</a>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative bg-cover bg-center py-16 rounded-xl overflow-hidden mx-4 sm:mx-8 md:mx-auto max-w-[1170px] mt-6 md:mt-10 lg:mt-16" style="background-image: url(&quot;/assets/beranda.jpg&quot;);">
+        <div class="absolute inset-0 bg-black opacity-70"></div>
+        <div class="relative container mx-auto px-4 md:px-6 lg:px-10 pt-12 text-center text-white">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight">Revolusi Pembelajaran: Temukan <br> Ilmu Baru melalui Platform Video <br> Interaktif!</h1>
+            <p class="text-gray-200 mb-8 text-sm sm:text-base lg:text-lg leading-relaxed">Temukan ilmu baru yang menarik dan mendalam melalui koleksi video pembelajaran berkualitas tinggi. Tidak <br> hanya itu, Anda juga dapat berpartisipasi dalam latihan interaktif yang akan meningkatkan pemahaman Anda.</p>
+            <a href="#" class="bg-green-500 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-md hover:bg-green-600 text-sm md:text-base">Temukan Video Course untuk Dipelajari!</a>
+        </div>
+    </section>
+
+    <section class="pt-16 bg-[#FFFDF3]">
+        <div class="container max-w-[1200px] mx-auto px-4 text-start">
+            <div class="mb-8">
+                <h2 class="text-3xl md:text-4xl font-bold mb-3 text-gray-900 leading-tight">
+                    Koleksi Video Pembelajaran Unggulan
+                </h2>
+                <p class="text-gray-600 text-lg">
+                    Jelajahi Dunia Pengetahuan Melalui Pilihan Kami!
+                </p>
+            </div>
+            <div class="flex items-center justify-between mb-8 gap-4">
+                <div class="flex justify-start space-x-5 overflow-x-auto whitespace-nowrap flex-1 items-center no-scrollbar pr-2">
+                    <a href="#" class="text-red-500 font-semibold border-b-4 border-red-500 pb-2 text-sm md:text-base">Semua Kelas</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 transition text-sm md:text-base">Pemasaran</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 transition text-sm md:text-base">Desain</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 transition text-sm md:text-base">Pengembangan Diri</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 transition text-sm md:text-base">Bisnis</a>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- grid 1 -->
+                <div class="bg-white rounded-lg border overflow-hidden h-full flex flex-col">
+                    <img src="/assets/grid 1.png" alt="Image" class="w-full h-48 object-cover p-4 rounded-[25px]">           
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-semibold mb-2 line-clamp-1">Big 4 Auditor Financial Analyst</h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[40px]">Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik</p>                       
+                        <div class="flex items-center mb-4 mt-auto"> 
+                            <img src="/assets/avatar-grid1.png" alt="Avatar" class="w-10 h-10 mr-4 rounded-full object-cover"> 
+                            <div> 
+                                <p class="text-gray-900 font-medium line-clamp-1">Jenna Ortega</p> 
+                                <p class="text-gray-600 text-sm line-clamp-1">Senior Accountant di 
+                                    <span class="text-gray-500 font-bold">Gojek</span>
+                                </p> 
+                            </div> 
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="text-yellow-500">
+                                <span class="text-xl">★★★★☆</span>
+                                <span class="text-gray-600">(86)</span>
+                            </div>
+                            <div class="text-green-500 font-bold">
+                                Rp 300K
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- grid 2 -->
+                <div class="bg-white rounded-lg border overflow-hidden h-full flex flex-col">
+                    <img src="/assets/grid 2.png" alt="Image" class="w-full h-48 object-cover p-4 rounded-[25px]">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-semibold mb-2 line-clamp-1">Big 4 Auditor Financial Analyst</h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[40px]">Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik</p>
+                        <div class="flex items-center mb-4 mt-auto"> 
+                            <img src="/assets/avatar-grid2.png" alt="Avatar" class="w-10 h-10 mr-4 rounded-full object-cover"> 
+                            <div> 
+                                <p class="text-gray-900 font-medium line-clamp-1">Jenna Ortega</p> 
+                                <p class="text-gray-600 text-sm line-clamp-1">Senior Accountant di 
+                                    <span class="text-gray-500 font-bold">Gojek</span>
+                                </p> 
+                            </div> 
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="text-yellow-500">
+                                <span class="text-xl">★★★★☆</span>
+                                <span class="text-gray-600">(86)</span>
+                            </div>
+                            <div class="text-green-500 font-bold">
+                                Rp 300K
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- grid 3 -->
+                <div class="bg-white rounded-lg border overflow-hidden h-full flex flex-col">
+                    <img src="/assets/grid 3.png" alt="Image" class="w-full h-48 object-cover p-4 rounded-[25px]">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-semibold mb-2 line-clamp-1">Big 4 Auditor Financial Analyst</h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[40px]">Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik</p>                       
+                        <div class="flex items-center mb-4 mt-auto"> 
+                            <img src="/assets/avatar-grid3.png" alt="Avatar" class="w-10 h-10 mr-4 rounded-full object-cover"> 
+                            <div> 
+                                <p class="text-gray-900 font-medium line-clamp-1">Jenna Ortega</p> 
+                                <p class="text-gray-600 text-sm line-clamp-1">Senior Accountant di 
+                                    <span class="text-gray-500 font-bold">Gojek</span>
+                                </p> 
+                            </div> 
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="text-yellow-500">
+                                <span class="text-xl">★★★★☆</span>
+                                <span class="text-gray-600">(86)</span>
+                            </div>
+                            <div class="text-green-500 font-bold">
+                                Rp 300K
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- grid 4 -->
+                <div class="bg-white rounded-lg border overflow-hidden h-full flex flex-col">
+                    <img src="/assets/grid 4.png" alt="Image" class="w-full h-48 object-cover p-4 rounded-[25px]">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-semibold mb-2 line-clamp-1">Big 4 Auditor Financial Analyst</h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[40px]">Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik</p>
+                        <div class="flex items-center mb-4 mt-auto">
+                            <img src="/assets/avatar-grid4.png" alt="Avatar" class="w-10 h-10 mr-4 rounded-full object-cover">
+                            <div>
+                                <p class="text-gray-900 font-medium line-clamp-1">Jenna Ortega</p>
+                                <p class="text-gray-600 text-sm line-clamp-1">Senior Accountant di <span class="">Gojek</span></p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="text-yellow-500">
+                                <span class="text-xl">★★★★☆</span>
+                                <span class="text-gray-600">(86)</span>
+                            </div>
+                            <div class="text-green-500 font-bold">
+                                Rp 300K
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- grid 5 -->
+                <div class="bg-white rounded-lg border overflow-hidden h-full flex flex-col">
+                    <img src="/assets/grid 5.png" alt="Image" class="w-full h-48 object-cover p-4 rounded-[25px]">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-semibold mb-2 line-clamp-1">Big 4 Auditor Financial Analyst</h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[40px]">Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik</p>
+                        <div class="flex items-center mb-4 mt-auto"> 
+                            <img src="/assets/avatar-grid5.png" alt="Avatar" class="w-10 h-10 mr-4 rounded-full object-cover"> 
+                            <div> 
+                                <p class="text-gray-900 font-medium line-clamp-1">Jenna Ortega</p> 
+                                <p class="text-gray-600 text-sm line-clamp-1">Senior Accountant di 
+                                    <span class="text-gray-500 font-bold">Gojek</span>
+                                </p> 
+                            </div> 
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="text-yellow-500">
+                                <span class="text-xl">★★★★☆</span>
+                                <span class="text-gray-600">(86)</span>
+                            </div>
+                            <div class="text-green-500 font-bold">
+                                Rp 300K
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- grid 6 -->
+                <div class="bg-white rounded-lg border overflow-hidden h-full flex flex-col">
+                    <img src="/assets/grid 6.png" alt="Image" class="w-full h-48 object-cover p-4 rounded-[25px]">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-semibold mb-2 line-clamp-1">Big 4 Auditor Financial Analyst</h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[40px]">Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik</p>
+                        <div class="flex items-center mb-4 mt-auto"> 
+                            <img src="/assets/avatar-grid6.png" alt="Avatar" class="w-10 h-10 mr-4 rounded-full object-cover"> 
+                            <div> 
+                                <p class="text-gray-900 font-medium line-clamp-1">Jenna Ortega</p> 
+                                <p class="text-gray-600 text-sm line-clamp-1">Senior Accountant di 
+                                    <span class="text-gray-500 font-bold">Gojek</span>
+                                </p> 
+                            </div> 
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="text-yellow-500">
+                                <span class="text-xl">★★★★☆</span>
+                                <span class="text-gray-600">(86)</span>
+                            </div>
+                            <div class="text-green-500 font-bold">
+                                Rp 300K
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- grid 7 -->
+                <div class="bg-white rounded-lg border overflow-hidden h-full flex flex-col">
+                    <img src="/assets/grid 7.png" alt="Image" class="w-full h-48 object-cover p-4 rounded-[25px]">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-semibold mb-2 line-clamp-1">Big 4 Auditor Financial Analyst</h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[40px]">Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik</p>
+                        <div class="flex items-center mb-4 mt-auto">
+                            <img src="/assets/avatar-grid7.png" alt="Avatar" class="w-10 h-10 mr-4 rounded-full object-cover">
+                            <div>
+                                <p class="text-gray-900 font-medium line-clamp-1">Jenna Ortega</p>
+                                <p class="text-gray-600 text-sm line-clamp-1">Senior Accountant di <span class="">Gojek</span></p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="text-yellow-500">
+                                <span class="text-xl">★★★★☆</span>
+                                <span class="text-gray-600">(86)</span>
+                            </div>
+                            <div class="text-green-500 font-bold">
+                                Rp 300K
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- grid 8 -->
+                <div class="bg-white rounded-lg border overflow-hidden h-full flex flex-col"> 
+                    <img src="/assets/grid 8.png" alt="Image" class="w-full h-48 object-cover p-4 rounded-[25px]"> 
+                        <div class="p-6 flex flex-col flex-grow"> 
+                            <h3 class="text-lg font-semibold mb-2 line-clamp-1">Big 4 Auditor Financial Analyst</h3> 
+                            <p class="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[40px]">Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik</p> 
+                        <div class="flex items-center mb-4 mt-auto"> 
+                            <img src="/assets/avatar-grid8.png" alt="Avatar" class="w-10 h-10 mr-4 rounded-full object-cover"> 
+                            <div> 
+                                <p class="text-gray-900 font-medium line-clamp-1">Jenna Ortega</p> 
+                                <p class="text-gray-600 text-sm line-clamp-1">Senior Accountant di <span class="">Gojek</span> </p> 
+                            </div> 
+                        </div> 
+                        <div class="flex justify-between items-center"> 
+                            <div class="text-yellow-500"> 
+                                <span class="text-xl">★★★★☆</span> 
+                                <span class="text-gray-600">(86)</span> 
+                            </div> 
+                            <div class="text-green-500 font-bold"> Rp 300K </div> 
+                        </div> 
+                    </div> 
+                </div>
+
+                <!-- grid 9 --> 
+                <div class="bg-white rounded-lg border overflow-hidden h-full flex flex-col"> 
+                    <img src="/assets/grid 9.png" alt="Image" class="w-full h-48 object-cover p-4 rounded-[25px]"> 
+                    <div class="p-6 flex flex-col flex-grow"> 
+                        <h3 class="text-lg font-semibold mb-2 line-clamp-1">Big 4 Auditor Financial Analyst</h3> 
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[40px]">Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik</p> 
+                        <div class="flex items-center mb-4 mt-auto"> 
+                            <img src="/assets/avatar-grid9.png" alt="Avatar" class="w-10 h-10 mr-4 rounded-full object-cover"> 
+                            <div> 
+                                <p class="text-gray-900 font-medium line-clamp-1">Jenna Ortega</p> 
+                                <p class="text-gray-600 text-sm line-clamp-1">Senior Accountant di <span class="">Gojek</span></p> 
+                            </div> 
+                        </div> 
+                        <div class="flex justify-between items-center"> 
+                            <div class="text-yellow-500"> <span class="text-xl">★★★★☆</span> 
+                                <span class="text-gray-600">(86)</span> 
+                            </div> 
+                            <div class="text-green-500 font-bold"> Rp 300K </div> 
+                        </div> 
+                    </div> 
+                </div>
+        </div>
+    </div>        
+    </section>
+    <section class="relative bg-cover bg-center py-16 rounded-xl overflow-hidden mx-4 sm:mx-8 md:mx-auto max-w-[1170px] mt-6 md:mt-10 lg:mt-16 mb-10" style="background-image: url(&quot;/assets/beranda2.jpg&quot;);">
+        <div class="absolute inset-0 bg-black opacity-70"></div>
+        <div class="relative container mx-auto px-4 md:px-6 lg:px-10 pt-12 text-center text-white">
+            <p class="text-gray-200 mb-8 text-sm sm:text-base lg:text-lg leading-relaxed">NEWSLATER</p>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight">Mau Belajar Lebih Banyak?</h1>
+            <p class="text-gray-200 mb-8 text-sm sm:text-base lg:text-lg leading-relaxed">
+                Daftarkan dirimu untuk mendapatkan informasi terbaru dan <br>
+                penawaran spesial dari program-program terbaik hariesok.id
+            </p>
+            <div class="relative w-full max-w-[500px] mt-8 gap-2 flex mx-auto">
+                <input type="email" placeholder="Masukkan Emailmu" class="w-full py-2.5 pr-12 pl-2.5 border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-yellow-400 text-black placeholder:text-gray-500" id="emailInput" />
+                <button class="absolute top-0 right-0 h-[80%] mt-1 mr-1 px-6 bg-[#FFBD3A] text-white rounded-lg cursor-pointer hover:bg-orange-600">
+                    SUBSCRIBE
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white py-8 border-t-[0.5px]"> 
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8"> 
+            <div class="flex flex-wrap justify-between items-start space-y-8 lg:space-y-0"> 
+                <div class="w-full lg:w-1/3"> 
+                    <img src="/assets/logo.png" alt="logo" class="h-6 md:h-8 mb-5"> 
+                    <p class="text-gray-600"> Gali Potensi Anda Melalui 
+                        <br> 
+                        Pembelajaran Video di hariesok.id 
+                    </p> 
+                    <address class="text-gray-600 mt-2"> Jl. Usman Effendi 
+                        <br>
+                        No. 50 Lowokwaru, Malang +62-877-7123-1234 
+                    </address> 
+                </div> 
+                <div class="w-full lg:w-2/3 flex flex-wrap justify-between space-y-8 lg:space-y-0"> 
+                    <div class="w-full sm:w-1/2 lg:w-1/3"> 
+                        <h4 class="font-bold text-gray-900 mb-4">Ketagori</h4> 
+                        <ul class="text-gray-600 space-y-2"> 
+                            <li> 
+                                <a href="#" class="hover:underline">Digital & Teknologi</a> 
+                            </li> 
+                            <li> 
+                                <a href="#" class="hover:underline">Pemasaran</a> 
+                            </li> 
+                            <li> 
+                                <a href="#" class="hover:underline">Manajemen Bisnis</a> 
+                            </li> 
+                            <li> 
+                                <a href="#" class="hover:underline">Pengembangan Diri</a> 
+                            </li> 
+                            <li> 
+                                <a href="#" class="hover:underline">Desain</a> 
+                            </li> 
+                        </ul> 
+                    </div> 
+                    <div class="w-full sm:w-1/2 lg:w-1/3"> 
+                        <h4 class="font-bold text-gray-900 mb-4">Perusahaan</h4> 
+                        <ul class="text-gray-600 space-y-2"> 
+                            <li> 
+                                <a href="#" class="hover:underline">Tentang Kami</a> 
+                            </li> 
+                            <li> 
+                                <a href="#" class="hover:underline">FAQ</a> 
+                            </li> 
+                            <li> 
+                                <a href="#" class="hover:underline">Kebijakan Privasi</a> 
+                            </li> 
+                            <li> 
+                                <a href="#" class="hover:underline">Ketentuan Layanan</a> 
+                            </li> 
+                            <li> 
+                                <a href="#" class="hover:underline">Bantuan</a> 
+                            </li> 
+                        </ul> 
+                    </div> 
+                    <div class="w-full lg:w-1/3"> 
+                        <h4 class="font-bold text-gray-900 mb-4">Komunitas</h4> 
+                        <ul class="text-gray-600 space-y-2"> 
+                            <li> 
+                                <a href="#" class="hover:underline">Tips Sukses</a> 
+                            </li> 
+                            <ul class="text-gray-600 space-y-2"> 
+                            <li> 
+                                <a href="#" class="hover:underline">Blog</a> 
+                            </li> 
+                        </ul> 
+                    </div> 
+                </div> 
+            </div> 
+        </div> 
+            <div class="bg-white py-6 px-8"> 
+                <hr class="border-t-2 border-grey mb-4"> <!-- hr di atas --> 
+                <div class="flex items-center justify-between"> 
+                    <p class="text-gray-500 text-left">©2023 Gerobak Sayur All Rights Reserved</p> 
+                    <div class="flex space-x-4"> 
+                        <a href="#" class="text-gray-500 hover:text-gray-800 p-2 rounded-full bg-white border border-black w-9 h-9 flex items-center justify-center"> 
+                            <i class="fab fa-linkedin-in"></i> 
+                        </a> 
+                        <a href="#" class="text-gray-500 hover:text-gray-800 p-2 rounded-full bg-white border border-black w-9 h-9 flex items-center justify-center"> 
+                            <i class="fab fa-facebook-f"></i> 
+                        </a> 
+                        <a href="#" class="text-gray-500 hover:text-gray-800 p-2 rounded-full bg-white border border-black w-9 h-9 flex items-center justify-center"> 
+                            <i class="fab fa-instagram"></i> 
+                        </a> 
+                        <a href="#" class="text-gray-500 hover:text-gray-800 p-2 rounded-full bg-white border border-black w-9 h-9 flex items-center justify-center"> 
+                            <i class="fab fa-twitter"></i> 
+                        </a> 
+                    </div> 
+                </div> 
+            </div> 
+    </footer>
+    <script>
+        // Mobile menu toggle
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburgerBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Toggle dropdown on Avatar click
+        const avatar = document.getElementById('avatar');
+        const dropdown = document.getElementById('dropdown');
+
+        avatar.addEventListener('click', () => {
+            dropdown.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
