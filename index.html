@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Tugas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .completed td:not(.action) {
+            text-decoration: line-through;
+        }
+
+        .overdue td {
+            background-color: #f8d7da;
+        }
+
+        .Low {
+            color: #6c757d;
+        }
+
+        .Medium {
+            color: #ffc107;
+        }
+
+        .High {
+            color: #007bff;
+        }
+
+        table {
+            white-space: nowrap;
+        }
+
+        .line-through {
+            text-decoration: line-through; /* Garis tengah untuk tugas yang selesai */
+        }
+        
+        /* Menambahkan pengecualian line-through pada tombol Edit */
+        #action-edit {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body class="bg-green-500">
+    <div class="flex justify-center items-center min-h-screen bg-gradient-to-r from-green-400 to-green-600">
+        <div class="w-full max-w-5xl p-8 bg-white rounded-lg shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-4xl font-bold text-gray-800">Daftar Tugas</h1>
+                <a href="create.html" class="bg-blue-600 text-white px-6 py-3 rounded-md shadow-md hover:bg-blue-700 transition duration-300">Tambah Tugas</a>
+                <button id="removeTasks" class="bg-red-600 text-white px-6 py-3 rounded-md shadow-md hover:bg-red-700 transition duration-300 disabled:opacity-50" disabled>Remove</button>
+                <button id="removeAll" class="bg-yellow-600 text-white px-6 py-3 rounded-md shadow-md hover:bg-yellow-700 transition duration-300 ml-2">Remove All</button>
+            </div>
+            <div class="overflow-x-auto bg-white rounded-3xl shadow-lg p-6">
+                <table class="min-w-full text-center border-collapse border-3 border-red-500 rounded-lg">
+                    <thead class="bg-gradient-to-r from-green-500 to-green-600 text-white">
+                        <tr>
+                            <th class="px-6 py-4 border-3 border-red-500 rounded-tl-3xl">Pilih</th>
+                            <th class="px-6 py-4 border-3 border-red-500">Nama</th>
+                            <th class="px-6 py-4 border-3 border-red-500">Jabatan</th>
+                            <th class="px-6 py-4 border-3 border-red-500">Waktu Pengerjaan</th>
+                            <th class="px-6 py-4 border-3 border-red-500">Waktu Selesai</th>
+                            <th class="px-6 py-4 border-3 border-red-500">Tugas</th>
+                            <th class="px-6 py-4 border-3 border-red-500">Level Tugas</th>
+                            <th id="sort-progress" class="px-6 py-4 border-3 border-red-500 cursor-pointer">Progress <span id="progress-sort-icon">🔼</span></th>
+                            <th id="sort-duration" class="px-6 py-4 border-3 border-red-500 cursor-pointer">Lama Pengerjaan <span id="duration-sort-icon">🔼</span></th>
+                            <th class="px-6 py-4 border-3 border-red-500 rounded-tr-3xl">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="task-table-body" class="text-gray-800">
+                        <!-- Baris akan dimasukkan secara dinamis -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data tugas contoh, pertama kali di-set di localStorage
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [
+            { id: 1, name: 'Mark', jobTitle: 'Manager', startDate: '2022-12-01', endDate: '2022-12-23', task: 'Selesaikan proyek', level: 'High', progress: 80, completed: false },
+            { id: 2, name: 'Jacob', jobTitle: 'Developer', startDate: '2022-12-05', endDate: '2022-12-25', task: 'Baca buku', level: 'Medium', progress: 50, completed: false },
+            { id: 3, name: 'John', jobTitle: 'Designer', startDate: '2022-12-10', endDate: '2022-12-28', task: 'Rencanakan acara', level: 'Low', progress: 30, completed: false },
+            { id: 4, name: 'Alice', jobTitle: 'Writer', startDate: '2022-12-12', endDate: '2022-12-22', task: 'Tulis artikel', level: 'High', progress: 90, completed: false },
+            { id: 5, name: 'Bob', jobTitle: 'Marketer', startDate: '2022-12-15', endDate: '2022-12-30', task: 'Promosi produk', level: 'Medium', progress: 60, completed: false }
+        ];
+
+        // Fungsi untuk memformat tanggal
+        function formatDate(date) {
+            const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+            return new Date(date).toLocaleDateString('id-ID', options); // Format: hari-bulan-tahun
+        }
+
+        // Fungsi untuk menampilkan tugas di tabel
+        function displayTasks() {
+            const tableBody = document.getElementById("task-table-body");
+            tableBody.innerHTML = "";
+
+            let anyChecked = false;
+
+            tasks.forEach((task, index) => {
+                const row = document.createElement("tr");
+                row.classList.add(index % 2 === 0 ? "bg-gray-50" : "bg-white");
+
+                // Menambahkan logika untuk menandai tugas yang dicentang
+                if (task.completed) {
+                    row.classList.add("completed");
+                    row.querySelectorAll("td").forEach(td => td.classList.add("line-through"));
+                }
+
+                // Menambahkan logika untuk menandai tugas yang overdue
+                const currentDate = new Date();
+                const endDate = new Date(task.endDate);
+                if (endDate < currentDate && !task.completed) {
+                    row.classList.add("overdue");
+                }
+
+                // Menambahkan kelas berdasarkan level tugas (Low, Medium, High)
+                if (task.level === "Low") {
+                    row.classList.add("Low");
+                } else if (task.level === "Medium") {
+                    row.classList.add("Medium");
+                } else if (task.level === "High") {
+                    row.classList.add("High");
+                }
+
+                // Menghitung Lama Pengerjaan (dalam hari)
+                const startDate = new Date(task.startDate);
+                const diffTime = Math.abs(endDate - startDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                row.innerHTML = `
+                    <td class="px-6 py-4 border-3 border-red-500">
+                        <input type="checkbox" class="completed-checkbox" data-id="${task.id}" ${task.completed ? 'checked' : ''} />
+                    </td>
+                    <td class="px-6 py-4 border-3 border-red-500">${task.name}</td>
+                    <td class="px-6 py-4 border-3 border-red-500">${task.jobTitle}</td>
+                    <td class="px-6 py-4 border-3 border-red-500">${formatDate(task.startDate)}</td>
+                    <td class="px-6 py-4 border-3 border-red-500">${formatDate(task.endDate)}</td>
+                    <td class="px-6 py-4 border-3 border-red-500">${task.task}</td>
+                    <td class="px-6 py-4 border-3 border-red-500">${task.level}</td>
+                    <td class="px-6 py-4 border-3 border-red-500">${task.progress}%</td>
+                    <td class="px-6 py-4 border-3 border-red-500">${diffDays} Hari</td>
+                    <td class="px-6 py-4 border-3 border-red-500 action" id="action-edit">
+                        <a href="edit.html?id=${task.id}" class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition duration-300">Edit</a>
+                    </td>
+                `;
+
+                tableBody.appendChild(row);
+
+                // Cek apakah ada checkbox yang dicentang
+                const checkbox = row.querySelector("input[type='checkbox']");
+                checkbox.addEventListener('change', () => {
+                    updateRemoveButtonState();  // Perbarui status tombol Remove setiap ada perubahan checkbox
+                    // Menambahkan atau menghapus class line-through ketika checkbox dicentang
+                    if (checkbox.checked) {
+                        row.querySelectorAll("td").forEach(td => td.classList.add("line-through"));
+                    } else {
+                        row.querySelectorAll("td").forEach(td => td.classList.remove("line-through"));
+                    }
+                });
+
+                if (task.completed) {
+                    anyChecked = true;
+                }
+            });
+
+            // Mengaktifkan tombol Remove jika ada checkbox yang dicentang
+            updateRemoveButtonState();
+        }
+
+        // Sorting berdasarkan Progress
+        let sortProgressAsc = true;
+        document.getElementById("sort-progress").addEventListener("click", function() {
+            tasks.sort((a, b) => sortProgressAsc ? a.progress - b.progress : b.progress - a.progress);
+            sortProgressAsc = !sortProgressAsc;
+            displayTasks();
+            document.getElementById("progress-sort-icon").innerText = sortProgressAsc ? "🔼" : "🔽";
+        });
+
+        // Sorting berdasarkan Lama Pengerjaan
+        let sortDurationAsc = true;
+        document.getElementById("sort-duration").addEventListener("click", function() {
+            tasks.sort((a, b) => sortDurationAsc ? getDuration(a) - getDuration(b) : getDuration(b) - getDuration(a));
+            sortDurationAsc = !sortDurationAsc;
+            displayTasks();
+            document.getElementById("duration-sort-icon").innerText = sortDurationAsc ? "🔼" : "🔽";
+        });
+
+        // Fungsi untuk menghitung lama pengerjaan dalam hari
+        function getDuration(task) {
+            const startDate = new Date(task.startDate);
+            const endDate = new Date(task.endDate);
+            const diffTime = Math.abs(endDate - startDate);
+            return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        }
+
+        // Fungsi untuk memeriksa status checkbox
+        function updateRemoveButtonState() {
+            const checkboxes = document.querySelectorAll("input[type='checkbox']");
+            const removeButton = document.getElementById('removeTasks');
+            const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+            removeButton.disabled = !anyChecked;
+        }
+
+        // Fungsi untuk menghapus tugas yang dicentang
+        function removeSelectedTasks() {
+            const checkboxes = document.querySelectorAll("input[type='checkbox']");
+            const tasksToRemove = [];
+
+            checkboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    const taskId = checkbox.getAttribute('data-id');
+                    tasksToRemove.push(taskId);
+                }
+            });
+
+            // Hapus tugas yang ada di tasksToRemove
+            tasks = tasks.filter(task => !tasksToRemove.includes(task.id.toString()));
+            displayTasks(); // Menampilkan ulang tugas setelah penghapusan
+        }
+
+        // Fungsi untuk menghapus semua tugas
+        function removeAllTasks() {
+            tasks.length = 0;
+            displayTasks();
+        }
+
+        displayTasks();
+
+        document.getElementById('removeTasks').addEventListener('click', removeSelectedTasks);
+        document.getElementById('removeAll').addEventListener('click', removeAllTasks);
+        // Menyimpan data ke localStorage
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    </script>
+
+</body>
+</html>

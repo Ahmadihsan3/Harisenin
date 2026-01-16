@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Task</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .completed td:not(.action) {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-green-400 to-green-600">
+
+    <!-- Container untuk menempatkan konten di tengah layar -->
+    <div class="flex justify-center items-center min-h-screen">
+
+        <!-- Container untuk form dengan lebar maksimum dan padding -->
+        <div class="w-full max-w-3xl p-8 bg-white rounded-xl shadow-xl">
+
+            <!-- Bagian Header -->
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-800">Create New Task</h1>
+
+                <!-- Tombol Kembali ke Daftar Tugas -->
+                <a href="index.html" class="bg-blue-600 text-white px-6 py-3 rounded-md shadow-md hover:bg-blue-700 transition duration-300">Back to Task List</a>
+            </div>
+
+            <!-- Form untuk membuat tugas -->
+            <form id="create-task-form" class="space-y-6">
+                
+                <!-- Nama -->
+                <div>
+                    <label for="name" class="block text-lg font-semibold text-gray-700">Nama</label>
+                    <input type="text" id="name" name="name" class="w-full p-4 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter your name">
+                </div>
+
+                <!-- Jabatan -->
+                <div>
+                    <label for="jobTitle" class="block text-lg font-semibold text-gray-700">Jabatan</label>
+                    <input type="text" id="jobTitle" name="jobTitle" class="w-full p-4 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter job title">
+                </div>
+
+                <!-- Waktu Pengerjaan -->
+                <div>
+                    <label for="startDate" class="block text-lg font-semibold text-gray-700">Waktu Pengerjaan</label>
+                    <input type="date" id="startDate" name="startDate" class="w-full p-4 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+
+                <!-- Waktu Selesai -->
+                <div>
+                    <label for="endDate" class="block text-lg font-semibold text-gray-700">Waktu Selesai</label>
+                    <input type="date" id="endDate" name="endDate" class="w-full p-4 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+
+                <!-- Tugas -->
+                <div>
+                    <label for="task" class="block text-lg font-semibold text-gray-700">Tugas</label>
+                    <textarea id="task" name="task" class="w-full p-4 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter your task" rows="4"></textarea>
+                </div>
+
+                <!-- Level Tugas -->
+                <div>
+                    <label for="level" class="block text-lg font-semibold text-gray-700">Level Tugas</label>
+                    <select id="level" name="level" class="w-full p-4 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+
+                <!-- Progress -->
+                <div>
+                    <label for="progress" class="block text-lg font-semibold text-gray-700">Progress</label>
+                    <select id="progress" name="progress" class="w-full p-4 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="10">10%</option>
+                        <option value="20">20%</option>
+                        <option value="30">30%</option>
+                        <option value="40">40%</option>
+                        <option value="50">50%</option>
+                        <option value="60">60%</option>
+                        <option value="70">70%</option>
+                        <option value="80">80%</option>
+                        <option value="90">90%</option>
+                        <option value="100">100%</option>
+                    </select>
+                </div>
+
+                <!-- Tombol Create Task -->
+                <div>
+                    <button type="button" onclick="createTask()" class="w-full bg-blue-500 text-white py-3 rounded-md font-semibold hover:bg-blue-600 transition duration-300">Create Task</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        // Function to create a new task
+        function createTask() {
+            const name = document.getElementById('name').value;
+            const jobTitle = document.getElementById('jobTitle').value;
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const task = document.getElementById('task').value;
+            const level = document.getElementById('level').value;
+            const progress = document.getElementById('progress').value;
+
+            if (task.trim() === "" || name.trim() === "" || jobTitle.trim() === "") {
+                alert("All fields must be filled!");
+                return;
+            }
+
+            // Simulate saving the task (in a real application, save it in a database)
+            const newTask = {
+                id: Date.now(),
+                name: name,
+                jobTitle: jobTitle,
+                startDate: startDate,
+                endDate: endDate,
+                task: task,
+                level: level,
+                progress: progress,
+                completed: false,
+            };
+
+            // Retrieve the current tasks from localStorage
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+            // Add the new task to the array
+            tasks.push(newTask);
+
+            // Save the updated tasks array back to localStorage
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+
+            // Simulate saving to database (you can redirect to index page to show the new task)
+            alert("Task Created Successfully!");
+            window.location.href = "index.html"; // Redirect to index.html
+        }
+    </script>
+</body>
+</html>
